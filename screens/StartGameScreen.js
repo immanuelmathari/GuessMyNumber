@@ -1,10 +1,24 @@
 import { StyleSheet, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
+import { useState } from "react";
 
 function StartGameScreen()
 {
+    const [enteredNumber, setEnteredNumber] = useState('');
+
+    function numberInputHandler(enteredText)
+    {
+        setEnteredNumber(enteredText);
+    }
+
+    function confirmInputHandler()
+    {
+        // we want to allow numbers within range on 1 and 99
+    }
+
+
     return <View style={styles.inputContainer}>
-        <TextInput style={styles.numberInput} maxLength={2} keyboardType="number-pad" autoCapitalize="none" autoCorrect={false} />
+        <TextInput style={styles.numberInput} maxLength={2} keyboardType="number-pad" autoCapitalize="none" autoCorrect={false} value={enteredNumber} onChangeText={numberInputHandler}/>
         <View style={styles.buttonsContainer}>
             <View style={styles.buttonContainer}>
 
@@ -14,8 +28,8 @@ function StartGameScreen()
             </View>
             <View style={styles.buttonContainer}>
 
-            <PrimaryButton>
-                Confirm
+            <PrimaryButton onPress={confirmInputHandler}>
+                Confirm.
             </PrimaryButton>
             </View>
         </View>
