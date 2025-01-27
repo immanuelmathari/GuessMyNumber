@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         // flex: 1, // ensure the element it is on takes up as much as it can.
         padding: 16,
         marginTop: 100,
-        backgroundColor: '#4e0329',
+        backgroundColor: '#3b021f',
         marginHorizontal: 24,
         borderRadius: 8,
         // to add a shadow
