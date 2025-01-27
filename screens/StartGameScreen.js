@@ -4,22 +4,63 @@ import PrimaryButton from "../components/PrimaryButton";
 function StartGameScreen()
 {
     return <View style={styles.inputContainer}>
-        <TextInput />
+        <TextInput style={styles.numberInput} maxLength={2} keyboardType="number-pad" autoCapitalize="none" autoCorrect={false} />
+        <View style={styles.buttonsContainer}>
+            <View style={styles.buttonContainer}>
+
             <PrimaryButton>
-                Reset
+                Reset.
             </PrimaryButton>
+            </View>
+            <View style={styles.buttonContainer}>
+
             <PrimaryButton>
                 Confirm
             </PrimaryButton>
+            </View>
+        </View>
     </View>
 }
 
 const styles = StyleSheet.create({
     inputContainer: {
-        flex: 1, // ensure the element it is on takes up as much as it can.
+        justifyContent: 'center',
+        alignItems: 'center',
+        // flex: 1, // ensure the element it is on takes up as much as it can.
         padding: 16,
         marginTop: 100,
-        backgroundColor: '#72063c'
+        backgroundColor: '#4e0329',
+        marginHorizontal: 24,
+        borderRadius: 8,
+        // to add a shadow
+        // this is react specific
+        // the higher the number from 1 the more shadow added
+        elevation: 8,
+        // for ios
+        shadowColor: 'black',
+        // the pixels which the shadow will be offset. and where. like the shadow positioning
+        shadowOffset: {width:0, height:2},
+        shadowRadius: 6,
+        // to make a shadow quite transparent
+        shadowOpacity: 0.25,
+    },
+    // for styling the input
+    numberInput: {
+        height: 70,
+        width: 50,
+        fontSize: 32,
+        borderBottomColor: '#ddb52f',
+        borderBottomWidth: 2,
+        color: '#ddb52f',
+        marginVertical: 8,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    buttonsContainer: {
+        flexDirection: 'row'
+    },
+    buttonContainer: {
+        flex: 1
     }
 })
 
