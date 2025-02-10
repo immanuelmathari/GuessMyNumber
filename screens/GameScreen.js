@@ -14,7 +14,7 @@ function GameScreen()
                 {/* + - */}
             </View>
             <View>
-                LOG ROUNDS
+                {/* LOG ROUNDS */}
             </View>
         </View>
     )
