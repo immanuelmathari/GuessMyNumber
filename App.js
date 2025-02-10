@@ -13,7 +13,7 @@ export default function App() {
     setUserNumber(pickedNumber);
   }
 
-  let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />
+  let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />
 
   if (userNumber) // if truthy, then we make it into if block but we initialized it as startGameScreen
   {
