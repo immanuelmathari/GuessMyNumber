@@ -2,7 +2,7 @@ import { Alert, StyleSheet, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
 
-function StartGameScreen()
+function StartGameScreen({onPickedNumber})
 {
     const [enteredNumber, setEnteredNumber] = useState('');
 
@@ -21,18 +21,21 @@ function StartGameScreen()
     {
         // we want to allow numbers within range on 1 and 99
         // convert texttoint
-        const chosenNumer = parseInt(enteredNumber);
+        const chosenNumber = parseInt(enteredNumber);
         // returns true of the number is not a number
-        if (isNaN(chosenNumer) || chosenNumer <= 0 || chosenNumber > 99)
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99)
         {
             // show an alert
             // first is title, second is message third allows us to configure the buttons which will be part of the alert
             // the button is defined by adding an object
             Alert.alert('Invalid Number','Number has to be a number between 1 and 99', [{text: 'Okay', style: 'destructive', onPress: resetInputHandler}])
+            // the onpress allows you to point to a function once the alert is triggered eg say to get rid of the invalid value
             return;
         }
 
-        console.log('valid number')
+        // console.log('valid number')
+        onPickedNumber(chosenNumber);
+
 
     }
 
@@ -67,10 +70,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 24,
         borderRadius: 8,
         // to add a shadow
-        // this is react specific
+        // this is reactnative, android specific
         // the higher the number from 1 the more shadow added
         elevation: 8,
-        // for ios
+        // for ios are the four below
         shadowColor: 'black',
         // the pixels which the shadow will be offset. and where. like the shadow positioning
         shadowOffset: {width:0, height:2},

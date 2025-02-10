@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     buttonOuterContainer: {
         borderRadius: 28,
         margin: 4,
-        overflow: 'hidden',
+        overflow: 'hidden', // clips effects that go outside this container
     },
     buttonInnerContainer: {
         backgroundColor: '#72063c',
