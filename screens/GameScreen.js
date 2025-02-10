@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import Title from "../components/Title";
+import Colors from "../constants/colors";
 
 function GameScreen()
 {
@@ -30,5 +31,14 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1, // take all available space
         padding: 40,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: Colors.accent500,
+        textAlign: 'center',
+        borderWidth: 2,
+        borderColor: Colors.accent500,
+        padding: 12,
     },
 });
