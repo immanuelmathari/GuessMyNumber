@@ -1,7 +1,7 @@
 import { Alert, StyleSheet, Text, View } from "react-native";
 import Title from "../components/ui/Title";
 import Colors from "../constants/colors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
 
@@ -22,12 +22,21 @@ let minNumber = 1;
 let maxNumber = 100;
 
 
-function GameScreen({userNumber})
+function GameScreen({userNumber, onGameOver})
 {
 
     // {props} you use props.userNumber
-    const initialGuess = generateRandomBetween(minNumber,maxNumber, userNumber);
+    // const initialGuess = generateRandomBetween(minNumber,maxNumber, userNumber);
+    // somehow we need to hardcode this
+    const initialGuess = generateRandomBetween(1,100, userNumber);
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
+
+    useEffect(() => {
+        if (currentGuess === userNumber) {
+            // tell app that the game is over
+            onGameOver();
+        }
+    }, [currentGuess, userNumber, onGameOver])
 
 
     function nextGuessHandler(direction)
