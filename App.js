@@ -18,7 +18,7 @@ export default function App() {
 
   if (userNumber) // if truthy, then we make it into if block but we initialized it as startGameScreen
   {
-    screen = <GameScreen />
+    screen = <GameScreen userNumber={userNumber} />
   }
   return (
     <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
