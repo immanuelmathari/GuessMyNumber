@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import Title from "../components/ui/Title";
 import Colors from "../constants/colors";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
  
 function generateRandomBetween(min, max, exclude) {
     const randomNumber = Math.floor(Math.random() * (max - min)) + min;
+
     
     if(randomNumber === exclude)
     {
@@ -33,6 +34,7 @@ function GameScreen({userNumber, onGameOver})
     // somehow we need to hardcode this
     const initialGuess = generateRandomBetween(1,100, userNumber);
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
+    const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
     useEffect(() => {
         if (currentGuess === userNumber) {
@@ -66,6 +68,7 @@ function GameScreen({userNumber, onGameOver})
         console.log(minNumber, maxNumber);
         const newNumber = generateRandomBetween(minNumber, maxNumber, currentGuess);
         setCurrentGuess(newNumber);
+        setGuessRounds((prevGuessRounds) => [newNumber, ...prevGuessRounds])
     }
     return (
         <View style={styles.screen}>
@@ -99,7 +102,12 @@ function GameScreen({userNumber, onGameOver})
                 {/* + - */}
             </Card>
             <View>
-                {/* LOG ROUNDS */}
+                {guessRounds.map((guessRound) => {
+                    return (
+                        // this is because its never repeated the guessRound because of our functionality
+                        <Text key={guessRound}>{guessRound}</Text>
+                    )
+                })}
             </View>
         </View>
     )
