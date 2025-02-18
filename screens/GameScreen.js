@@ -7,6 +7,7 @@ import PrimaryButton from "../components/ui/PrimaryButton";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import GameLogItem from "../components/game/GameLogItem";
  
 function generateRandomBetween(min, max, exclude) {
     const randomNumber = Math.floor(Math.random() * (max - min)) + min;
@@ -70,6 +71,9 @@ function GameScreen({userNumber, onGameOver})
         setCurrentGuess(newNumber);
         setGuessRounds((prevGuessRounds) => [newNumber, ...prevGuessRounds])
     }
+
+    const guessRoundListLength = guessRounds.length;
+
     return (
         <View style={styles.screen}>
             {/* <Text style={styles.title}>
@@ -101,7 +105,7 @@ function GameScreen({userNumber, onGameOver})
                 </View>
                 {/* + - */}
             </Card>
-            <View>
+            <View style={styles.listContainer}>
                 {/* {guessRounds.map((guessRound) => {
                     return (
                         // this is because its never repeated the guessRound because of our functionality
@@ -112,7 +116,9 @@ function GameScreen({userNumber, onGameOver})
                 {/* flatlist adds a key for us */}
                 {/* but if we know it cant find like in our case, we use the KeyExtractor */}
                 {/* we basically tell react native to use our data as the key */}
-                <FlatList data={guessRounds} renderItem={(itemData) => <Text>{itemData.item}</Text>} keyExtractor={(item) => item} />
+                {/* <FlatList data={guessRounds} renderItem={(itemData) => <Text>{itemData.item}</Text>} keyExtractor={(item) => item} /> */}
+                {/* <FlatList data={guessRounds} renderItem={(itemData) => <GameLogItem roundNumber={itemData.index}  />} keyExtractor={(item) => item} /> */}
+                <FlatList data={guessRounds} renderItem={(itemData) => <GameLogItem roundNumber={guessRoundListLength - itemData.index} guess={itemData.item}  />} keyExtractor={(item) => item} />
             </View>
         </View>
     )
@@ -142,5 +148,9 @@ const styles = StyleSheet.create({
     },
     instructionText: {
         marginBottom: 12,
+    },
+    listContainer: {
+        flex: 1,
+        padding: 16,
     }
 });
