@@ -12,6 +12,7 @@ import AppLoading from 'expo-app-loading';
 export default function App() {
   const [userNumber, setUserNumber] = useState('');
   const [gameOver, setGameOver] = useState(true);
+  const [guessRounds, setGuessRounds] = useState(0);
 
   // fontsLoaded is a boolean that shows whether the fonts have been loaded
   const [fontsLoaded] = useFonts({
@@ -29,8 +30,17 @@ export default function App() {
     setUserNumber(pickedNumber);
     setGameOver(false);
   }
+  
+  function startNewGameHandler()
+  {
+    // reset states
+    setUserNumber(null); // though this we can go back to the start screen because the if conditions will not be met. well go to startgamescreen
+    // setGameOver(true);
+    setGuessRounds(0);
+  }
 
   let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />
+
 
   if (userNumber) // if truthy, then we make it into if block but we initialized it as startGameScreen
   {
@@ -38,7 +48,7 @@ export default function App() {
   }
   if(gameOver && userNumber) 
   {
-    screen = <GameOverScreen />
+    screen = <GameOverScreen userNumber={userNumber} roundsNumber={guessRounds} onStartNewGame={startNewGameHandler} />
   }
 
   function gameOverHandler()
