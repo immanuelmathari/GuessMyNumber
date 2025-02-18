@@ -40,7 +40,7 @@ function GameScreen({userNumber, onGameOver})
     useEffect(() => {
         if (currentGuess === userNumber) {
             // tell app that the game is over
-            onGameOver();
+            onGameOver(guessRounds.length);
         }
     }, [currentGuess, userNumber, onGameOver])
 
