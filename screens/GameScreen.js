@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import Title from "../components/ui/Title";
 import Colors from "../constants/colors";
 import { useEffect, useState } from "react";
@@ -102,12 +102,17 @@ function GameScreen({userNumber, onGameOver})
                 {/* + - */}
             </Card>
             <View>
-                {guessRounds.map((guessRound) => {
+                {/* {guessRounds.map((guessRound) => {
                     return (
                         // this is because its never repeated the guessRound because of our functionality
                         <Text key={guessRound}>{guessRound}</Text>
                     )
-                })}
+                })} */}
+                {/* itemData is passed by react native */}
+                {/* flatlist adds a key for us */}
+                {/* but if we know it cant find like in our case, we use the KeyExtractor */}
+                {/* we basically tell react native to use our data as the key */}
+                <FlatList data={guessRounds} renderItem={(itemData) => <Text>{itemData.item}</Text>} keyExtractor={(item) => item} />
             </View>
         </View>
     )
