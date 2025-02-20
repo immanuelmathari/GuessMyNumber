@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1, // take all available space
         padding: 40,
+        alignItems: 'center',
     },
     title: {
         fontSize: 24,
