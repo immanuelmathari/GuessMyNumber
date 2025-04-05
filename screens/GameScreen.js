@@ -71,7 +71,9 @@ function GameScreen({userNumber, onGameOver})
         console.log(minNumber, maxNumber);
         const newNumber = generateRandomBetween(minNumber, maxNumber, currentGuess);
         setCurrentGuess(newNumber);
+        console.log(newNumber);
         setGuessRounds((prevGuessRounds) => [newNumber, ...prevGuessRounds])
+        console.log(guessRounds);
     }
 
     const guessRoundListLength = guessRounds.length;

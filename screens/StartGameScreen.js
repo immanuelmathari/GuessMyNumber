@@ -50,7 +50,7 @@ function StartGameScreen({ onPickedNumber }) {
                 <Title >Guess My Number</Title>
                 <Card>
                     <InstructionText>Enter a Number</InstructionText>
-                    <TextInput style={styles.numberInput} maxLength={2} keyboardType="number-pad" autoCapitalize="none" autoCorrect={false} value={enteredNumber} onChangeText={numberInputHandler} />
+                    <TextInput style={styles.numberInput} maxLength={2} keyboardType="number" autoCapitalize="none" autoCorrect={false} value={enteredNumber} onChangeText={numberInputHandler} />
                     <View style={styles.buttonsContainer}>
                         <View style={styles.buttonContainer}>
 

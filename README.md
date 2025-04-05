@@ -1,3 +1,190 @@
+05.04.25
+revision
+Note) For buttons, we could use Pressable component which accepts a prop onPress and can have another prop android_ripple
+Note) Which hook allows us to get updated width and height of the screen? useWindowDimensions()
+Note) To be able to scroll, we use a ScrollView
+Note) To have flexible margins for different screen sizes, you use the useWindowDimensions() and calculate height because it can give you a value of width and height
+const { width, height } = useWindowDimensions();.  or
+const deviceWidth = Dimensions.get('window').width;
+Use this to calculate
+const marginTopDistance = heigh < 380 ? 30 : 100;
+this is conditional rendering and then we could say
+            <View style={[styles.rootContainer, { marginTop: marginTopDistance }]}>
+Note) Styles can take an object with multiple conditions such as 
+
+ <View  style={styles.goalItem}>
+          <Pressable android_ripple={{color: '#dddddd'}} onPress={props.onDeleteItem.bind(this, props.id)} style={({ pressed }) => pressed && styles.pressedItem}>
+              <Text style={styles.goalText} >{props.text}</Text>
+          </Pressable>
+          </View>
+NOTE) Modularly, assets like colors and fonts are placed in an assets folder, where all say colors are definied with intuitive names and called in the component in a manner like this
+        backgroundColor: Colors.primary800,
+NOTE) Example of android specific styles is like elevation which adds a shadow to an item and affects the z-order for overlapping views. In IOS there is no elevation so we use shadowColor, shadowOffset, shadowRadius and shadowOpacity (to make the shadow kind of transparent)
+	// to add a shadow
+        // this is reactnative, android specific
+        // the higher the number from 1 the more shadow added
+        elevation: 8,
+        // for ios are the four below
+        shadowColor: 'black',
+        // the pixels which the shadow will be offset. and where. like the shadow positioning
+        shadowOffset: {width:0, height:2},
+        shadowRadius: 6,
+        // to make a shadow quite transparent
+        shadowOpacity: 0.25,
+NOTE) Examples of props in a TextInput is such as maxLength which takes an object maxLength={2} for numbers 1-99, keyboardType such as number-pad, email-address, decimal-pad, name-phone-pad, url, visible-password etc, we have autoCapitalize with options of characters, sentences, words, none we have autoCorrect which takes a object of trur or false, and obviously the value which should be a useState and a onChangeText as a function to update the use state
+    const [enteredNumber, setEnteredNumber] = useState('');
+    function numberInputHandler(enteredText) {
+        setEnteredNumber(enteredText);
+    }
+                    <TextInput style={styles.numberInput} maxLength={2} keyboardType="number" autoCapitalize="none" autoCorrect={false} value={enteredNumber} onChangeText={numberInputHandler} />
+
+Note) if you want to have say two buttons horizontally inside a card next to each other, youd define a view with a flexDirection of row, and init, for each button, another View with of flex 1. when you have two of these in the major view, each of them will take 1 + 1 = 2 1/2 a half
+<View style={styles.buttonsContainer}>
+                        <View style={styles.buttonContainer}>
+
+                            <PrimaryButton onPress={resetInputHandler}>
+                                Reset.
+                            </PrimaryButton>
+                        </View>
+                        <View style={styles.buttonContainer}>
+
+                            <PrimaryButton onPress={confirmInputHandler}>
+                                Confirm.
+                            </PrimaryButton>
+                        </View>
+                    </View>
+buttonsContainer: {
+        flexDirection: 'row'
+    },
+    buttonContainer: {
+        flex: 1
+    },
+
+NOTE) A button could simply be a view with a borderRadius, margin, and overflow hidden and init is a Pressable with a backgroundColor, some paddingVertical and Horizontal, maybe an elevation. and then init is the text 
+<View style={styles.buttonOuterContainer}>
+<Pressable onPress={onPress} android_ripple={{color: Colors.primary600}} style={({pressed}) => pressed ? [styles.buttonInnerContainer, styles.pressed] : styles.buttonInnerContainer}>
+        <Text style={styles.buttonText}>
+            {/* {props.children} */}
+            {children}
+        </Text>
+    </Pressable>
+    </View>
+const styles = StyleSheet.create({
+    buttonOuterContainer: {
+        borderRadius: 28,
+        margin: 4,
+        overflow: 'hidden', // clips effects that go outside this container
+    },
+    buttonInnerContainer: {
+        backgroundColor: Colors.primary500,
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        elevation: 2
+    },
+    buttonText: {
+        color: 'white',
+        textAlign: 'center',
+    },
+    pressed: {
+        opacity: 0.75, // 75 pc obaque 25 pc transparent
+    }
+})
+
+NOTE) if we had a functionality whereby we need to check if a number is between 0 and 100 that is either 1 to 99, we do that when we submit using a function at the onPress. by this time, we have already saved the number in the useState at the TextInput. here we could have the conditions and even an alert to show if its not a valid number. 
+
+NOTE) An alert takes five things; the title as the first thing, the message as the second, the button text as the third, and the style you want it to be, and a function that acts say to reset the input
+    function confirmInputHandler() {
+        const chosenNumber = parseInt(enteredNumber);
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+            Alert.alert('Invalid Number', 'Number has to be a number between 1 and 99', [{ text: 'Okay', style: 'destructive', onPress: resetInputHandler }])
+            return;
+        }
+        onPickedNumber(chosenNumber);
+    }
+- this screen changes based on the input of the user when the button is confirmed. so this number is fowarded to the App.js
+if isset, we set another screen. therefore this component has to have a prop 
+function StartGameScreen({ onPickedNumber }) {
+ and this is what is set. 
+so in App.js, we have a state userNumber. and a function pickedNumberHandler that has to have a prop because it expects to receive a value. 
+we could say, 
+  let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />
+if (userNumber) {
+    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} /> // we can now use this gameover prop in the game screen ( it comes later though)
+  }
+- so if there is a userNumber, we go to GameScreen. 
+
+NOTE) we could have a gradient, a background Image and a place we can have the views well called a SafeAreaView
+so we'd start with the LinearGradient, then a component to bring the background image, ImageBackground. and you require the source where the photo is, and props like resizeMode which could be cover, contain, stretch, repeat, center and then the {screen}
+<LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
+      <ImageBackground source={require('./assets/images/background.png')} resizeMode="cover" style={styles.rootScreen} imageStyle={styles.backgroundImage}>
+      {/* <StartGameScreen />  */}
+      <SafeAreaView style={styles.rootScreen}>
+      {screen}
+      </SafeAreaView>
+      </ImageBackground>
+    </LinearGradient>
+rootScreen: {
+    flex: 1,
+  },
+  backgroundImage: {
+    opacity: 0.35,
+  }
+- the safe area is used to Respecting Device Screen Restrictions
+
+
+
+NOTE) The linear Gradient is gotten from expo-linear-gradient
+> expo install expo-linear-gradient
+
+NOTE) You could even have a way to have a reusable text with its style and then you can even have styles passed as a prop. take a look at this
+
+function InstructionText({children, style})
+{
+    return (
+        <Text style={[styles.instructionText, style]}>{children}</Text>
+
+    )
+}
+
+export default InstructionText;
+
+const styles = StyleSheet.create({
+    instructionText: {
+        fontFamily: 'open-sans',
+        color: Colors.accent500,
+        fontSize: 24,
+    }
+});
+<InstructionText style={styles.instructionText}>Higher or lower</InstructionText>
+    instructionText: {
+        marginBottom: 12,
+    },
+- so note the way InstructionText uses a style prop
+
+NOTE) For Icons we use Ionicons
+
+NOTE) So the way GameScreen works, is that we have a content tab that btw could be landscape or portrait. then we need to deal with guessing the number. we greate a function to randomly Guess which is generateRandomBetween
+    const initialGuess = generateRandomBetween(1,100, userNumber);
+- and then a current guess
+    const [currentGuess, setCurrentGuess] = useState(initialGuess);
+- the major function in GameScreen is nextGuessHandler of which we have a custom button component which is PrimaryButton and onPress, we call it and bind a text 'lower' remember unlike last time's ID. 
+<View style={styles.buttonContainer}>
+
+                <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
+                    <Ionicons name="remove-sharp" size={24} color="white" />
+                </PrimaryButton>
+                    </View>
+                    <View style={styles.buttonContainer}>
+
+                <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
+                    <Ionicons name="add" size={24} color="white" />
+                </PrimaryButton>
+                    </View>
+- then in nextGuessHandler, we expect to take in a prop which can be called direction which can be lower or higher. so as soon as we get here, we come here with a number we set in StartGameScreen
+function GameScreen({userNumber, onGameOver})
+then we make a guess and then we need to check if this murife is saying what is the truth or not if they are lying to us how do we check for that. if they have said the direction is lower, and the currentGuess is lower than the userNumber they are lying or if they said direction is greater and currentGuess is more than userNumber they are also lying so we tell them through an alert that they are lying. then, the direction is lower, we need to set the maximum Guess which is maxNumber to the current guess of if it should go up (greater) we set the currentGuess to the minNumber then we pass these to the function generateRandomBetween. We use a guessRounds to keep track of the guesses weve done so that we can count them once we are done. and then we also need a prop to check when the game is over the onGameOver prop that is done by the useEffect. I think ive understood everything imagine. The last thing, the way the list is done is using a FlatList, 
+<FlatList data={guessRounds} renderItem={(itemData) => <GameLogItem roundNumber={guessRoundListLength - itemData.index} guess={itemData.item}  />} keyExtractor={(item) => item} />
+
 27.01.25
 > npx create-expo-app@latest --template blank GuessMyNumber
 - we want to ensure no number is smaller than 1 and more than 99
