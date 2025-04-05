@@ -6,35 +6,30 @@ import Title from "../components/ui/Title";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
 
-function StartGameScreen({onPickedNumber})
-{
+function StartGameScreen({ onPickedNumber }) {
     const [enteredNumber, setEnteredNumber] = useState('');
 
     const { width, height } = useWindowDimensions(); // this is a hook that allows us to get the updated width and height of the screen 
 
-    function numberInputHandler(enteredText)
-    {
+    function numberInputHandler(enteredText) {
         setEnteredNumber(enteredText);
     }
 
     // for reseting input
-    function resetInputHandler()
-    {
+    function resetInputHandler() {
         setEnteredNumber('');
     }
 
-    function confirmInputHandler()
-    {
+    function confirmInputHandler() {
         // we want to allow numbers within range on 1 and 99
         // convert texttoint
         const chosenNumber = parseInt(enteredNumber);
         // returns true of the number is not a number
-        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99)
-        {
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
             // show an alert
             // first is title, second is message third allows us to configure the buttons which will be part of the alert
             // the button is defined by adding an object
-            Alert.alert('Invalid Number','Number has to be a number between 1 and 99', [{text: 'Okay', style: 'destructive', onPress: resetInputHandler}])
+            Alert.alert('Invalid Number', 'Number has to be a number between 1 and 99', [{ text: 'Okay', style: 'destructive', onPress: resetInputHandler }])
             // the onpress allows you to point to a function once the alert is triggered eg say to get rid of the invalid value
             return;
         }
@@ -49,30 +44,30 @@ function StartGameScreen({onPickedNumber})
 
 
     return <ScrollView style={styles.screen}>
-    {/* <KeyboardAvoidingView style={styles.screen} behavior="position" keyboardVerticalOffset={30}> */}
-    <KeyboardAvoidingView style={styles.screen} behavior="position" >
-    <View style={[ styles.rootContainer, { marginTop: marginTopDistance} ]}>
-    <Title >Guess My Number</Title>
-    <Card>
-        <InstructionText>Enter a Number</InstructionText>
-        <TextInput style={styles.numberInput} maxLength={2} keyboardType="number-pad" autoCapitalize="none" autoCorrect={false} value={enteredNumber} onChangeText={numberInputHandler}/>
-        <View style={styles.buttonsContainer}>
-            <View style={styles.buttonContainer}>
+        {/* <KeyboardAvoidingView style={styles.screen} behavior="position" keyboardVerticalOffset={30}> */}
+        <KeyboardAvoidingView style={styles.screen} behavior="position" >
+            <View style={[styles.rootContainer, { marginTop: marginTopDistance }]}>
+                <Title >Guess My Number</Title>
+                <Card>
+                    <InstructionText>Enter a Number</InstructionText>
+                    <TextInput style={styles.numberInput} maxLength={2} keyboardType="number-pad" autoCapitalize="none" autoCorrect={false} value={enteredNumber} onChangeText={numberInputHandler} />
+                    <View style={styles.buttonsContainer}>
+                        <View style={styles.buttonContainer}>
 
-            <PrimaryButton onPress={resetInputHandler}>
-                Reset.
-            </PrimaryButton>
-            </View>
-            <View style={styles.buttonContainer}>
+                            <PrimaryButton onPress={resetInputHandler}>
+                                Reset.
+                            </PrimaryButton>
+                        </View>
+                        <View style={styles.buttonContainer}>
 
-            <PrimaryButton onPress={confirmInputHandler}>
-                Confirm.
-            </PrimaryButton>
+                            <PrimaryButton onPress={confirmInputHandler}>
+                                Confirm.
+                            </PrimaryButton>
+                        </View>
+                    </View>
+                </Card>
             </View>
-        </View>
-    </Card>
-    </View>
-    </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
     </ScrollView>
 
 }
@@ -107,7 +102,7 @@ const styles = StyleSheet.create({
         // for ios are the four below
         shadowColor: 'black',
         // the pixels which the shadow will be offset. and where. like the shadow positioning
-        shadowOffset: {width:0, height:2},
+        shadowOffset: { width: 0, height: 2 },
         shadowRadius: 6,
         // to make a shadow quite transparent
         shadowOpacity: 0.25,
@@ -119,7 +114,7 @@ const styles = StyleSheet.create({
         fontSize: 32,
         borderBottomColor: Colors.accent500,
         borderBottomWidth: 2,
-        color: Colors.accent500 ,
+        color: Colors.accent500,
         marginVertical: 8,
         fontWeight: 'bold',
         textAlign: 'center'
@@ -130,5 +125,5 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 1
     },
-    
+
 })
