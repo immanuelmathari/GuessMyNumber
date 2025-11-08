@@ -56,7 +56,7 @@ function GameScreen({userNumber, onGameOver})
     {
         if((direction === 'lower' && currentGuess < userNumber) || (direction === 'greater' && currentGuess > userNumber))
         {
-            Alert.alert("Murife", 'Why are you lying?', [{ text: 'sorry!', style: 'cancel' }]);
+            Alert.alert("Wrong Input", 'Why did you gave us the wrong input?', [{ text: 'Try Again!', style: 'cancel' }]);
             return;
         }
 

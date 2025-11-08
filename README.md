@@ -184,6 +184,9 @@ NOTE) So the way GameScreen works, is that we have a content tab that btw could 
 function GameScreen({userNumber, onGameOver})
 then we make a guess and then we need to check if this murife is saying what is the truth or not if they are lying to us how do we check for that. if they have said the direction is lower, and the currentGuess is lower than the userNumber they are lying or if they said direction is greater and currentGuess is more than userNumber they are also lying so we tell them through an alert that they are lying. then, the direction is lower, we need to set the maximum Guess which is maxNumber to the current guess of if it should go up (greater) we set the currentGuess to the minNumber then we pass these to the function generateRandomBetween. We use a guessRounds to keep track of the guesses weve done so that we can count them once we are done. and then we also need a prop to check when the game is over the onGameOver prop that is done by the useEffect. I think ive understood everything imagine. The last thing, the way the list is done is using a FlatList, 
 <FlatList data={guessRounds} renderItem={(itemData) => <GameLogItem roundNumber={guessRoundListLength - itemData.index} guess={itemData.item}  />} keyExtractor={(item) => item} />
+NOTE) Lastly there is this thing of to avoid the keyboad from being everywhere. its called KeyboardAvoidingVIew
+        <KeyboardAvoidingView style={styles.screen} behavior="position" >
+
 
 27.01.25
 > npx create-expo-app@latest --template blank GuessMyNumber
@@ -562,3 +565,24 @@ Title.js
 
 5.90 Styling the status bar
 App.js
+
+## What we learn 
+1. Login in React
+2. This is a game where you enter a number and its the phone's task to guess that number and you give the phone hints as to whether your number is higher or lower that what is guessed by the applicaton and you see how many turns it takes for you phone to guess that number
+3. Using background Images and Gradients
+- We would want our App to have a background but too much of it makes what should be seen illegible. So we work with gradients and backgrounds and opacity to achieve a nice feel
+4. Complex Layouts and Styles
+5. Building Reusable Components & Styles
+- Many are the times you need to use the same set of styles or the same component over and over again. React Native offers ways to build your own customizable components that can be reused all over the application
+6. Writing Platform Specific files
+- Some styles work differently from one platform to another such as elevation; a property that is used to add a shadow on a component. Android offers this style but IOS does not in IOS we have to work with shadowColor, shadowOffset, shadowRadius and shadowOpacity to simulate what elevation in android does
+7. Manipulating Status Bar
+- At times your app could have a dark theme making the status bar illegible. We work with Status Bar to set the default Bar we would like our uses to use
+8. Using SafeAreaViews
+- Sometimes in mobile apps when you click on an input, the keyboard could take an unpropotional space in your device making you unable to do anything else. SafeAreaViews curbs that. 
+9. Working With Different Phone Sizes and Dimensions 
+- Different phones obviously have different sizes or what we call viewports and developers have to create apps that suit different viewport by a good understanding on libraries such as useWindowDimensions
+10. Responsitivity
+- We would want our app to look good both on potrait and landscape. 
+11. Working with Alerts
+- Many are the time where you would need to show the user some response based on the input in order to constrain the set of expected results
